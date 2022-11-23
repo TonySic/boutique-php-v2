@@ -1,0 +1,31 @@
+
+html {
+    background-color: rgb(180, 180, 180);
+}
+
+.navbar {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#foot {
+    width: 100%;
+    height: auto;
+}
+
+#footer {
+    background-color: black;
+    color: white;
+    margin-top: 16px;
+}
+
+#footer p {
+    font-size: 16px;
+}
+
+#text-product {
+    padding-left: 300px;
+    padding-right: 300px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
