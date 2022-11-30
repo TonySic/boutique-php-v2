@@ -40,7 +40,7 @@ afficherPanier();?>
 
 <!-- Button trigger modal -->
 <div class="d-flex justify-content-center">
-<button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#exampleModal">
   Valider la commande !
 </button>
 </div>
@@ -67,7 +67,7 @@ afficherPanier();?>
 <div class="d-flex justify-content-center p-3">
 <form action= "./panier.php" method="POST">
     <input type="hidden" name="vider-panier">
-<button type="submit" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal">
+<button type="submit" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Vider le panier !
 </button></form>
 </div>

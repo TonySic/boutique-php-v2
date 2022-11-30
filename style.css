@@ -8,6 +8,16 @@ html {
     text-transform: uppercase;
 }
 
+.navbar-brand {
+    color:brown;
+    font-family: Alfa Slab One;
+    font-size: 30px;
+}
+
+.nav-item {
+    color:black !important;
+}
+
 #foot {
     width: 100%;
     height: auto;
