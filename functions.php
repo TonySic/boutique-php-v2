@@ -421,23 +421,18 @@ function modifMDP()
 }
 
 function validation_commande() {
-    $connexion = connexion_bdd();
+    $db = getConnection();
     $numero_commande = rand(1000000, 9999999);
-    $sql1 = "INSERT INTO commandes (id_client , numero , status , date_commande , prix , livraison) VALUES (:id_client , :numero , :statut , :date_commande , :prix , :livraison)";
-    $prepare1 = $connexion->prepare($sql1);
+    $sql1 = "INSERT INTO commandes (id_client , numero) VALUES (:id_client , :numero)";
+    $prepare1 = $db->prepare($sql1);
     $execute1 = $prepare1->execute(
         array(
             ":id_client" => $_SESSION["id"],
-            ":numero" => $numero_commande,
-            ":statut" => "En cours de traitement",
-            ":date_commande" => date("d/m/Y"),
-            ":prix" => $_POST["montant_hors_livraison"],
-            ":livraison" => $_POST["montant_de_livraison"]
-
+            ":numero" => $numero_commande
         )
     );
     $sql2 = "INSERT INTO commande_articles (id_article , numero_commande , quantite) VALUES (:id_article , :numero_commande , :quantite)";
-    $prepare2 = $connexion->prepare($sql2);
+    $prepare2 = $db->prepare($sql2);
     for ($i = 0; $i < count($_SESSION["panier"]); $i++) {
 
         $execute2 = $prepare2->execute(
@@ -449,7 +444,7 @@ function validation_commande() {
         );
     }
     $sql3 = "UPDATE articles SET stock = :stock WHERE articles.id = " . $_SESSION["panier"][$i]["id"];
-    $prepare3 = $connexion->prepare($sql3);
+    $prepare3 = $db->prepare($sql3);
     for ($i = 0; $i < count($_SESSION["panier"]); $i++) {
 
         $execute3 = $prepare3->execute(

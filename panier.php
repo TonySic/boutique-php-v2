@@ -67,10 +67,11 @@ afficherPanier(); ?>
 
     <!-- Button trigger modal -->
     <?php
-    if (count($_SESSION['panier'])>0) { ?>
+    if (count($_SESSION['panier'])>0) {
+      validation_commande(); ?>
       <div class="d-flex justify-content-center">
       <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Valider la commande !
+        Valider la commande ! 
       </button>
     </div>
     <?php } ?>
