@@ -27,8 +27,8 @@ include './head.php';
         <h3 class="text-center text-danger p-3">Modifier mes informations</h4>
             <div class="text-center">
                     <form class="p-4" action="./modif-info.php" method="POST">
-                    <label class="text-center p-1">Prénom : <input value="<?php echo $_SESSION['prenom'] ?>" type="text" name="nom" required></label>
-                    <label class="p-1">Nom : <input value="<?php echo $_SESSION['nom'] ?>" type="text" name="prenom" required></label>
+                    <label class="text-center p-1">Prénom : <input value="<?php echo $_SESSION['prenom'] ?>" type="text" name="prenom" required></label>
+                    <label class="p-1">Nom : <input value="<?php echo $_SESSION['nom'] ?>" type="text" name="nom" required></label>
                     <label class="p-1">E-mail : <input value="<?php echo $_SESSION['email'] ?>" type="text" name="email" required></label>
                     <button type="submit" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Valider les changements</button>

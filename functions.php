@@ -419,3 +419,55 @@ function modifMDP()
         }
     }
 }
+
+function validation_commande() {
+    $connexion = connexion_bdd();
+    $numero_commande = rand(1000000, 9999999);
+    $sql1 = "INSERT INTO commandes (id_client , numero , status , date_commande , prix , livraison) VALUES (:id_client , :numero , :statut , :date_commande , :prix , :livraison)";
+    $prepare1 = $connexion->prepare($sql1);
+    $execute1 = $prepare1->execute(
+        array(
+            ":id_client" => $_SESSION["id"],
+            ":numero" => $numero_commande,
+            ":statut" => "En cours de traitement",
+            ":date_commande" => date("d/m/Y"),
+            ":prix" => $_POST["montant_hors_livraison"],
+            ":livraison" => $_POST["montant_de_livraison"]
+
+        )
+    );
+    $sql2 = "INSERT INTO commande_articles (id_article , numero_commande , quantite) VALUES (:id_article , :numero_commande , :quantite)";
+    $prepare2 = $connexion->prepare($sql2);
+    for ($i = 0; $i < count($_SESSION["panier"]); $i++) {
+
+        $execute2 = $prepare2->execute(
+            array(
+                ":id_article" => $_SESSION["panier"][$i]["id"],
+                ":numero_commande" => $numero_commande,
+                ":quantite" => $_SESSION["panier"][$i]["quantite"]
+            )
+        );
+    }
+    $sql3 = "UPDATE articles SET stock = :stock WHERE articles.id = " . $_SESSION["panier"][$i]["id"];
+    $prepare3 = $connexion->prepare($sql3);
+    for ($i = 0; $i < count($_SESSION["panier"]); $i++) {
+
+        $execute3 = $prepare3->execute(
+            array(
+                ":stock" => $_SESSION["panier"][$i]["stock"] - $_SESSION["panier"][$i]["quantite"]
+
+            )
+        );
+    }
+}
+
+function recupArticlesCommande($commandeId)
+{
+    $db = getConnection();
+    $query = $db->prepare('SELECT * FROM commande_articles AS ca 
+                            INNER JOIN articles AS a 
+                            ON a.id = ca.id_article 
+                            WHERE id_commande = ?');
+    $query->execute([$commandeId]);
+    return $query->fetchAll();
+}
